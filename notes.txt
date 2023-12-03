@@ -48,3 +48,37 @@ batch[1] ==> labels
 batch[0].shape ==> (32, 256, 256, 3)
 
 32 images of 256 x 256 by 3 channels
+
+
+* Remove unecessary images:
+
+''' 
+#Create data directory with images:
+data_dir = 'PetImages/Train'
+image_exts = ['jpeg', 'jpg', 'bmp', 'png']
+
+#Remove any unecessary extensions
+for image_class in os.listdir(data_dir):
+    #Loop through every single image in sub-directories
+    for image in os.listdir(os.path.join(data_dir, image_class)):
+        image_path = os.path.join(data_dir, image_class, image)
+        try:
+            img = cv2.imread(image_path)
+            tip = imghdr.what(image_path)
+            if tip not in image_exts:
+                print('Image not in ext list ()'.format(image_path))
+                #Deletes a file
+                os.remove(image_path)
+        except Exception as e:
+            print('Issue with image ()'.format(image_path))
+'''
+
+
+* Show class on plot
+
+#Class 1 = Dog
+#Class 0 = Cat
+fig, ax = plt.subplots(ncols=4, figsize=(20, 20))
+for idx, img in enumerate(batch[0][:4]):
+    ax[idx].imshow(img.astype(int))
+    ax[idx].title.set_text(batch[1][idx])
