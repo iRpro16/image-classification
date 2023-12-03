@@ -1,0 +1,32 @@
+* Return folders in directory:
+
+os.listdir(data_dir)
+
+* Loop through every single image in a folder:
+
+os.listdir(os.path.join(data_dir, *folder name*))
+
+* To read an image:
+
+cv2.imread(os.path.join(data, class, image))
+
+* To show image 
+
+img = cv2.imread(os.path.join(data, class, image))
+
+Then use matplotlib
+
+plt.imshow(img)
+plt.show()
+
+* Open CV reads in BGR, while matplotlib reads in RGB. To fix:
+
+plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
+
+*Shape of image:
+
+example: (500, 368, 3)
+
+500 => height of image
+368 => width of image
+3   => number of channels
