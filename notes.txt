@@ -23,10 +23,28 @@ plt.show()
 
 plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
 
-*Shape of image:
+* Shape of image:
 
 example: (500, 368, 3)
 
 500 => height of image
 368 => width of image
 3   => number of channels
+
+
+* .image_dataset_from_directory method:
+
+tf.keras.utils.image_dataset_from_directory()
+
+==> Sets batch size to 32
+==> Sets image size to (256, 256)
+
+
+* Batches:
+
+batch[0] ==> images 
+batch[1] ==> labels
+
+batch[0].shape ==> (32, 256, 256, 3)
+
+32 images of 256 x 256 by 3 channels
