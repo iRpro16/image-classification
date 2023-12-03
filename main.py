@@ -3,7 +3,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import tensorflow as tf
 from keras.optimizers import Adam
-from sklearn.model_selection import train_test_split
+from keras.models import Sequential
+from keras.layers import Dense, Conv2D, MaxPooling2D, Flatten
+from keras.losses import BinaryCrossentropy
 import os
 import cv2
 import imghdr
@@ -43,4 +45,23 @@ train = data_scaled.take(train_size)
 val = data_scaled.skip(train_size).take(val_size)
 test = data_scaled.skip(train_size+val_size).take(test_size)
 
+#Train NN
+model = Sequential([
+    
+    Conv2D(16, (3,3), 1, activation='relu', input_shape = (256, 256, 3)),
+    MaxPooling2D(),
+    Conv2D(32, (3,3), 1, activation='relu'),
+    MaxPooling2D(),
+    Conv2D(16, (3,3), 1, activation='relu'),
+    MaxPooling2D(),
+    Flatten(),
+    Dense(256, activation='relu'),
+    Dense(1, activation='sigmoid')
 
+])
+
+model.compile('adam',
+              loss=BinaryCrossentropy(),
+              metrics=['accuracy'])
+
+hist = model.fit(train, epochs=5, validation_data=val)
